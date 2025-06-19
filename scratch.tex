@@ -1,0 +1,478 @@
+\documentclass[article,9pt,twocolumn,twoside]{rilabRxiv}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{amsmath}
+% Use the documentclass option 'lineno' to view line numbers
+\setlength{\marginparwidth}{2cm}
+\usepackage[textsize=tiny,colorinlistoftodos]{todonotes} % comments in margins
+\definecolor{cornflowerblue}{rgb}{0.39, 0.58, 0.93}
+
+%interwordspace: \the\fontdimen2\font \\
+
+%interwordstretch: \the\fontdimen3\font \\
+
+%emergencystretch: \the\emergencystretch\par
+%\blindtext
+
+%%%%%%%Add comments in color
+\newcommand{\jri}[1]{{\small \textcolor{red}{#1}}}
+\newcommand{\citex}[1]{{\small \textcolor{red}{CITE(#1)}}}
+\newcommand{\X}{{\textcolor{red}{X}}}
+\newcommand{\der}{{\textcolor{purple}{X}}}
+\newcommand{\so}[1]{{\small \textcolor{blue}{#1}}}
+\newcommand{\ashe}{{\textcolor{green}{X}}}
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+
+% Set supplement numbers to S and start counting newly
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+     
+\begin{document}
+Outline
+\begin{itemize}
+    % local eQTL
+    \item local and distal eQTL
+    \item QTL candidate genes
+    \item local eQTL effect size - Mostafavi
+    % Disregulation and rare allele burden
+    \item Demonstrate rare allele burden associated with extreme expression
+    \item Homozygous rare alleles and fitness (yield)
+    \item number of rare alleles of founder correlated with founder frequency?
+     % Factor eQTL
+    \item factor trans-eQTL
+    \item overlap with QTL/correlation or lack theroof
+    \item Number of rare alleles in window associated with extreme F values?
+    \item Regions with factor trans-eQTL are under-enriched for rare alleles?
+    
+    % Diversifying selection on FT
+    \item Show variance is higher than expected from simulations
+    \item Number of rare alleles not correlated with founder frequency for FT genes?
+    \item Higher frequency of extreme founder alleles at FT genes
+   
+\end{itemize}
+\cite{Huang4} MAGIC in Arabidopsis, did they do eQTL? No
+
+
+eQTL are usually separated into two categories, \emph{cis}-eQTL, for which the associated gene is nearby the genetic variant, and \emph{trans}-eQTL, for which the associated gene or genes are located far away from or on another chromosome than the variant.
+
+%Integrative eQTL GWAS
+%\cite{Liu4} eQTL GWAS in pigs %cited
+%\cite{Lan} eQTL mice %cited
+%\cite{Harbison} Drosophila eQTL sleep cited
+%\cite{Pang} maize kernel size eQTL
+%\cite{Luo} human schizophrenia candidate from eQTL and GWAS %cited
+%\cite{Naukkarinen} human expression data for find obesity related genes
+%\cite{Roux} cis-eQTL and gWAS for adiposity regulation in chickens and mice %cited
+%\cite{West} Arabidopsis eQTL mapping
+%\cite{Yu3} Integrated QTT, eQTL, and GWAS in Brassica napus %cited
+
+
+
+
+% Methods of linking gene-expression data to GWAS hits
+Reviews using summary statistics to dissect complex traits \citep{PasaniucPrice}.
+Proposed methods
+
+
+Yet another hurdle in linking eQTL to QTL for complex traits is that, even if there is physical overlap observed, it is not guaranteed that an eQTL is mediating the effect of the overlapping GWAS hit.
+This overlap could instead be due to linkage or pleiotropy (elaborate XX) \citep{Yao}.
+Multiple methods have been developed to attempt to disentangle these three scenarios, co-localization tests (cite XX).
+Colocalization XX \citep{Hormozdiari}.
+Transcriptome-wide association studies (TWAS) combine summary statistics from GWAS and eQTL mapping to detect association with imputed gene expression values \citep{LiRitchie}.
+TWAS has been applied in multiple instances used to supplement GWAS in humans \citep{Gusev2} and maize \citep{Kremling}, as well as many other organisms.
+Although powerful, one downside of TWAS is that it cannot rule out that the association between gene expression and the complex trait is due to either pleoitropy or linkage (cite XX).
+\cite{Zhu} Integrated eQTL and gWAS humans?
+\cite{Porcu} Mendelian randomization with eQTL and GWAS
+
+Quantitative Trait Transcripts - what they are
+
+Determining how genetic variation contributes to complex traits is hard
+- mediated by gene expression in complex regulatory networks
+\citep{AlbertKruglyak}
+\citep{Wallace3}
+This process is further complicated by the large amount of structural variation that exists  individual maize varieties \citep{Wang2,Chakraborty,Haberer}
+Analysis of the maize pan-genome and pan-transcriptome revealed that a substantial portion of genetic and transcript variation may be missed by using a single maize reference, with only 16.4\% of transcript assemblies 
+ shared across all lines sequenced \citep{Hirsch}.
+
+In plants:
+\cite{Christie} Systems genetics approach using eQTL and QTL in maize to study pathogen resistance; trans-eQTL hotspot overlapped with QTL
+\cite{Miculan} - transcript trait correlations between gene expression and leaf traits, GWAS for leaf traits, eQTL mapping; identified candidate genes, more physiological traits such as leaf length, leaf elongation rate, leaf elongation duration, division zone size, and at an early stage in development (seedling stage)
+"The first step was to characterize the associations between expression levels and leaf phenotypes with an approach in concordance with \cite{Baute2}" - QTT
+
+\subsection{Model of genetoype to phenotype}
+
+The model proposed by \cite{Mostafavi} describes the connection between genotype, gene expression, and phenotype as:
+    \begin{equation} 
+    \label{eqn:mostafavi}
+   genotype\xrightarrow{\beta}gene expression\xrightarrow{\gamma}phenotype
+    \end{equation}
+where $\beta$ represents the effect of a genetic variant on expression of a gene and $\gamma$ represents the effect of a gene's expression on a phenotype. 
+The tests to identify QTL and eQTL are estimating different parameters from this equation, which the power of QTL mapping dependent on the magnitude of $\beta\gamma$ and the power of eQTL mapping dependent on the magnitude of $\beta$ alone.
+Under the expectations of this model we would expect to see
+\begin{itemize}
+\item{The largest effect eQTL that overlap with eQTL are not the ones with the most correlated effect sizes}
+\item{Smaller effect QTL have more of their variation explained by overlapping cis-eQTL than Larger effect QTL}
+\item{Pleiotropic QTL have fewer explanatory eQTL than non-pleiotropic eQTL}
+\item{Pleiotropic eQTL do not overlap with QTL}
+\end{itemize}
+
+% Miscellaneous
+Methods are often limited to local-eQTL, as studies generally have higher power to detect them due to a lower multiple testing burden.
+
+Talk about trans-eQTL - amount of variation in expression explained
+A study in mice found that local eQTL more likely to be consistent across contexts such as tissue and sex, while most distal-eQTL were context-specific \citep{vanNas}.
+
+% Epistatis/ Gene Interactions and heritability explained
+Gene-by-gene interactions may contribute significantly to heritability \citep{Bloom}.
+\cite{Finucane} tested for enrichment of heritability of complex traits surrounding highly expressed tissue-specific genes using LD score regression, identifying multiple gene enrichments for brain-related diseases and traits.
+
+
+Understanding of molecular basis of complex traits
+\citep{CivelekLusis}
+
+\citep{Eichler}- Identifying causative variants 
+
+
+Things I should cite:
+%Reviews
+\cite{Mackay} quant gen review
+\cite{Druka} eQTL in plants review
+\cite{Gilad} eQTL review
+
+% Co-localizaiton methods
+\cite{Xu} Framework for integrating eQTL and GWAS
+\cite{Zhang1} Omics assisted GWAS
+
+% QTTs
+\cite{Joet} QTT for chlorogenic acid in maize
+\cite{PassadorGurgel} QTT in Drosophila
+
+% Maize specific
+\cite{Baute} Correlation between gene expression and 14 traits in MAGIC, constructed a growth regulatory network of associated genes
+\cite{Baute2} Bi-parental RILs, correlated gene expression with leaf traits
+\cite{Guo} ZCN8 cis-regulatory changes
+\cite{Munger} Having reference genomes for MAGIC improves count estimation
+\cite{Haberer} maize pan-genome repeats and genes
+\cite{Chakraborty} structural variants
+
+
+
+% Why we don't see overlap / sleection
+\cite{Mostafavi} Reasons for lack of overlap
+
+
+Read: is it relevant
+\cite{Jamann} Resequencing around maize FT regions
+\cite{Ietswaart} antisense rna and chromatin related to flowering
+\cite{Jiang2} TF prediction and tissue specificity in maize
+\cite{Lazakis} ZCN8 integrates photoperiod and endogenous signals for flowering
+\cite{Li4} Big multi-parent maize FT scan
+\cite{Liu2} CUBIC
+\cite{Maldonado} Network-assisted GWAS of FT in maize
+\cite{Peng} chromatin interaction map and genetic regulation in maize
+\cite{Wang2,Wang3} Transcription in maize
+\cite{Morgan} disrupted gene networks in mice
+
+
+\citep{Krouk} - validation of individual gene functions at a system-wide scale calls for the characterization of gene expression 
+
+\cite{Hukku} Co-localization of genetic variants form complex and molecular traits 32 "A different explanation si that trait-relevant eQTLs have not yet been discovered due to incomplete statistical power, even if in correct contexts" 
+
+\cite{Liu5} trans-effects on expression - omnigenic model 36 "eQTL studies are mainly powered to detect cis-eQTLs, while many trait-relevant variants may act as trans-eQTLs (affecting genes elsewhere in the genome), while many trait-relevant variants may act as trans-eQTLs"
+
+\cite{Vosa} large-scale cis- and trans-eQTL analyses 37 .. "genes without detectable eQTLs have relatively higher pLI" - low tolerance for loss-of-function; "Moreover, genes with many downstream regulatory connections in the network, are expected to be important contributors to heritability","Moreover, even with extraordinarily large samples, as for blood where there is now a cis-eQTL for most expressed genes"
+
+\cite{Pierce} trans often explained by cis-mediation 38 "Standard models of gene regulation predcit that trans-eQTLs should be mediated indirectly through cis effects on nearby genes, and thus bariants sould in principle be discoverable as cis-eQTL"
+
+\cite{O'Connor} Extreme polygenicity of complex traits explained by negative selection "Previous studies have suggested that the genetic architecture of most complex human traits is shaped by natural selection, such that mutaitons with large effect sizes are kept at lower frequencies than would be expected in the absence of selection"; "Given that selection strength is inversely related to the magnitude of the phenotypic effect, this
+does not systematically change the expected rankings of variants discovered in GWAS compared
+to the neutral scenario, although it leads to a more uniform distribution of heritability across variants with intermediate and large effects, a phenomenon referred to as "flattening""
+
+\cite{Simons} Population genetic interpretation of GWAS ... "While
+selection does play an important role in reducing allele frequencies for these variants, it has a "flattening" effect, and does not systematically bias against discovery at important genes"
+
+\cite{Siewert-Rocks} Leveraging gene co-regulation to identify gene sets enriched for disease heritability 46 "This suggests that eQTLs with large effects on constrained genes are purged by selection, and is consistent with recent work showing that the fraction of trait heritability estimated to be mediated via gene expression is mostly dominated by genes with low cis-heritability for expression levels";"Consistent with selection, SNP heritability for complex traits is enriched near genes depleted of loss-of-function (LoF) variants)
+
+\cite{WangGoldstein} "demonstrated that genes near GWAS hits and eGenes also differ with respect to features of their linked enhancer domains"; In this framework, compared to genes linked with random SNPs, GWAS genes have longer enhancer regions per active tissue/cell type, while eQTLs have shorter enhancers, consistent with "
+
+Order of results:
+Single genes:
+\begin{itemize}
+    \item Cis eQTL
+    \item Slope of expression on time
+    \item trans-eQTL full genome scan in each timepoint
+\end{itemize}   
+Multiple genes:
+\begin{itemize}
+    \item MegaLMM trans-eQTL in each of the time points
+\end{itemize}
+Allelic series
+Relationship to Phenotype
+Overlap or lack-there-of of eQTL and QTL
+QTT
+
+
+%\subsection{Time-Series eQTL}
+%    We looked for genetic variants associated with variation in change in gene expression across timepoints. 
+%    We had 108 individuals with expression measured in three of the timepoints (T18, T20, and T27).
+%    We excluded the first timepoint, T12, due to its smaller sample size.
+%    To do this, we took the average slope of gene expression changes across the three timepoints and used that as a phenotype input into GridLMM.
+%    To approximate the slope values as change in gene expression over time, we calculated the slope with the x-axis as days, with 2 days between the timepoint T18 and T20, and 7 days between T20 and T27.
+%    Using a model similar to Equation \ref{eqn:gridlmm1}, excluding covariates, we tested for an association between the slope of gene expression over time and founder probabilities for 17,233 genes. 
+
+%The model used is shown here:
+    % \begin{equation}
+    %\label{eqn:megalmm1}
+    %Y = F\Lambda + X_{1}B_{1} + X_{2}B_{2R} + ZU_{R} + %E_{R}
+    %\end{equation}
+    %where $F$ is an $n$x$k$ matrix of latent factors, $Lambda$ is a $k$x$t$ factor loadings matrix, where $t$ is the number of traits, $X=[X_{1},X_{2}]$ is a partition of the $n$x$b$ fixed effect covariate matrix between the $b_{1}$ covariates within improper proiors and the $b_{2}=b-b_{1}$ covariates with proper priors, and the $U_{R}$ and $U_F$ coefficients matrices are the coeffecients matrices for the random and fixed effects, respectively. 
+    %\begin{equation} 
+    %\label{eqn:megalmm1_1}
+    %F = X_{2}B_{2F} + ZU_{F} + E_{F}
+    %\end{equation}
+
+        %\begin{equation}
+    %\label{eqn:gridlmm2}
+    %y = \mu + plate + X_{Fi}{\beta_{Fi}} + Zu + \epsilon
+    %\end{equation}
+
+
+\subsection{Detection of Allelic Series}
+    Using the eQTL we identified, we wished to determine if there was evidence for allelic series at loci affecting gene expression.
+    We looked at the estimated effect sizes and performed a Tukey test to determine if the founder effect sizes were significantly different from one another.
+    We used the software lme4qtl to estimate standard errors for the founder effect sizes, as these were not estimated by GridLMM and used the R package emmeans to make pairwise comparisons between all 16 founders.
+    To improve estimates of founder effect sizes, founders with low representation were dropped from the test if there were fewer than 4 individuals with a probability for that founders was greater than 0.75 for that founder.
+    In this way, we could determine if the founder effect sizes appeared to cluster into multiple groups, which would suggest an allelic series at that eQTL.
+
+    %A 5\% FDR significance threshold was used to determine if correlation was greater than expected by chance.
+%\subsection{Quantitative Trait Transcripts}
+%    We identified quantitative trait transcripts (QTTs) as genes whose expression was correlated with whole-plant phenotypes.
+%    We calculated the correlation between phenotypes for complex traits for individuals with the normalized gene expression of all genes. 
+%    We used a 5\% FDR threshold to determine genes that were more correlated with variation in complex traits than expected by chance. 
+%    We also tested the correlation between founder effect sizes for complex traits and gene expression, also using a 5\% FDR significance threshold. 
+
+\subsection{Differential Gene Expression Analysis}
+To test for differentially expressed genes involved in \textit{vgt1}, we first determined the probability that individuals possessed the MITE insertion underlying the early allele ($MITE^+$) of \textit{vgt1} using founder probabilites.
+We used the software limma/voom to test for DEGs between lines with and without the MITE insertion, including plate as a covariate to account for batch effects. 
+In addition, we split the 253 $MITE^+$ lines by whether or not they possessed a founder allele at the MITE that displayed a later flowering time effect size (A632, C103, F252, and F492) \citep{Odell}.
+
+
+\subsection{Allelic Series}
+%local-eQTL
+
+%factor trans-eQTL
+For all 16 of the factor \textit{trans}-eQTL identified, there was a XX statistically significant difference between founder effect sizes on factor F-values. 
+
+% distal eQTL effect sizes
+For the distal-eQTL we identified, we estimated founder effect sizes at the most significant marker for each trans-eQTL peak and tested to see if there was a significant difference in the effects of founder allele at the marker on expression of the eQTL transcript.
+
+XX Tests for interaction between founder allele at the eQTL variant and eQTL transcript
+
+
+\subsection{QTL and eQTL Overlap}
+% Overlap of local eQTL and QTL
+We tested to see if any local-eQTL overlapped with QTL for phenotypes.
+We did this both for phenotypes measured from the same field where tissue was collected, which we call Exp.St. Paul, 2017, as well as from other environment-years.
+We did this by looking for overlap between the QTL support interval and eQTL peaks.
+There were local-eQTL overlapping with all 54 distinct phenotype-environment QTL.
+In order to determine if gene expression and phenotype were functionally related, we calculated the correlation between the founder effects sizes for the QTL and all overlapping local-eQTL.
+The gene with the largest $|r|$ value is a strong candidate gene for the QTL.
+
+% cis-eQTL and QTL from EXP STPAUL
+One gene, Zm00001d011123, overlapped with qDTA8 and had a high correlation of effect sizes (r=0.951).
+This gene encodes a Zinc-finger protein, and has previously been found to overlap with QTL for streak virus incidence and silking time \citep{Nair,JimenezGalindo}.
+
+% distal-eQTL and QTL from EXP STPAUL
+For the 5 QTL identified in EXP ST.Paul, there were 5,444 distal-eQTL that overlapped with QTL support intervals.
+These distal eQTL were associated with 4, 251 different genes.
+We tested to see if there was any correlation between the founder effect sizes for these QTL and overlapping distal-eQTL.
+We found that the effect sizes.
+
+One distal-eQTL had a very high correlation ($r=0.96$) of founder effect sizes with the QTL \emph{qTKW2}, a QTL associated with thousand-kernel weight found on chromosome 2.
+The distal-eQTL was assocated with variation in a gene Zm00001d034373 in T12, located on chromosome 2.
+This gene encodes a fasciclin-like arabinogalactan protein 17 precursor (FLA17).
+In maize and arabidopsis, FLA proteins have been found to be associated with kernel abortion under drought stress \citep{Cagnola}
+In maize, FLA17 is a candidate gene for leaf flecking, a phenotype that is positively assocaited with defense against biotrophic pathogens, and that has been observed to be negatively associated with kernel weight \citep{Olukolu}.
+
+
+% Overlap of factor eQTL and distal-eQTL
+We identified many instances of distal-eQTL for individual genes that overlapped with factor \textit{trans}-eQTL.
+For whole gene count factor \textit{trans}-eQTL, there were 3,820 distal-eQTL overlapping with all 4 factor \textit{trans}-eQTL.
+With the distal residual factor \textit{trans}-eQTL, 15,106 distal-eQTL overlapped with all 14 factor \textit{trans}-eQTL.
+We looked to see if the genes associated with overlapping distal-eQTL were loaded on the factors they overlapped with.
+For 6 of the 18 factors with factor trans-eQTL, the genes with distal-eQTL that overlapped with factor trans-eQTL had a larger proportion of variation in expression explained by the factor than all genes loaded on the factor (one-sided t.test, p-value<3.1e-3).
+This suggests that XX, a shared function/co-regulation for these distal-eQTL ?
+
+
+%Here is a single column figure (Figure \ref{fig:figure1})
+
+%\begin{figure}[ht]
+%\includegraphics[width=0.6\linewidth]{figures/jri_bee.jpg}
+%\caption{\textbf{Important figure} Describe the figure }
+%\label{fig:figure1}
+%\end{figure}
+
+\subsection{Differential Expression}
+The putative causal variant for a well-characterized, large-effect QTL for flowering time, vgt1, is a MITE insertion ~70 kb upstream of a flowering time regulatory gene, ZmRap2.7.
+This QTL was previously found to be segregating in the population \citep{Odell}.
+Four of the 16 founders lack the MITE insertion (B73, B96, OH43, and VA85), while the other 12 possess the MITE.
+We were able to determined that 253 MAGIC lines possessed the MITE and 70 lines lacked the MITE with high certainty (combined founder probability $\ge$ 0.9).
+Across the four timepoints, we identified 61 genes that were differentially expressed between MITE+ and MITE- lines.
+46 of these genes overlapped with QTL support intervals, with the vast majority of them located on chromosome 8 nearby the MITE insertion.
+Interestingly,  four of these genes were on different chromosomes, with 3 on chromosome 7 overlapping with two regions associated complex traits containing qTKW7\_1, qTKW7\_2, qHGM7, qDTA7 (Zm00001d020692,Zm00001d001183,Zm00001d019102).
+Another differentially expressed gene, Zm00001d025407 overlapped with QTL for anthesis-silking interval (ASI) on chromosome 10, qASI10.
+This QTL was identified with a bi-allelic model, but not multi-allelic models.
+
+The proposed mode of action for the MITE insertion is that it results in the increased methylation of ZmRap2.7, causing reduced expression.
+ZmRap2.7 is a negative regulator of the maize FT homolog, ZCN8, so this reduced expression leads to earlier flowering time. 
+It is reasonable to suspect that many of the genes within the region surrounding the MITE would also have reduced expression due to increased methylation.
+We found this to be the case with many, but not all of the identified DEGs.
+Across timepoints, 23 genes (37\%) had a logFC>0 MITE-Non-MITE and 38 genes had a logFC<0 MITE-NonMITE.
+
+20 of the DEGs were differentially expressed in more than one timepoint, although 41 out of the 61 (67\%) DEGs were in only one timepoint.
+One gene, Zm00001d011152, was differentially expressed in all four timepoints and the only DEG in T12.
+9 genes were DEGs in T18, T20, and T27.
+Of these 9, two had a logFC>0, suggesting that they were not simply repressed in MITE+ lines, Zm00001d010946 and Zm00001d011189. 
+
+Zm00001d011152 encodes a 40S ribosomal protein S4-3 is a homolog a Arabidosis HSP90-7.
+It is an gene unique to maize \citep{Arendsee}. 
+It was split up into three separate gene models in v5
+GWAS hits for plant height and ear fructescence position \citep{Peiffer,Peiffer2}
+
+Zm00001d011189 is a DUF3511 domain protein that was found to be involved in spikelet meristem identity \citep{Wang4} and overlapped with a GWAS hit for plant height \citep{Hu}.
+
+Zm00001d010946 encodes a Tetratricopeptide repeat (TPR)-like superfamily protein containing an RNA-polymerase II-associated protein 3-like, C-terminal domain.
+It is a homolog of TPR5 in Arabidopsis, which is involved in control of root cell division and growth rates \citep{Sotta}.
+In addition, in both Arabidopsis and rice, TPR5 were shown to be expressed in response to heat in both roots and shoots and have the potential to interact with heat shock proteins Hsp90/Hsp70 as co-chaperones \citep{Prasad}. 
+This suggests a potential interaction with Zm00001d011152.
+This gene was overlapping with or within 10kb of multiple variants associated with complex traits, including a GWAS hit for days to flowering, plant height, total biomass yield, shoot dry weight, and reduced relative ear height \citep{Li6,vanInghelandt,Wang5,Wu}.
+
+We performed GO term enrichment of the DEGs and found 195 enriched terms, many of them related to XX
+
+We had previously observed that there were four founders that were known to possess the MITE insertion, but that displayed an effect size at vgt1 inconsistent with the MITE+ allele \citep{Odell}.
+To attempt to determine the underlying cause for this difference, we also performed differential gene expression analysis for the 253 individuals possessing the MITE+ allele and split them into two groups based on the founder allele at vgt1, the four founders with later effect sizes (A632, F492, F252, and C103) and the 8 founders with the expected early effect size.
+Across the 4 timepoints, there were 30 DEGs between the Early and Late MITE individuals.
+18 of these genes (60\%) were located on chromosome 8.
+Four of the DEGs were present in more than one timepoint, with one gene, Zm00001d011222, differentially expressed in T18, T20, and T27.
+This gene encodes a Calcium-binding EF hand family protein and was previously found to be associated anthesis data and response to \textit{Exserohilum turcicum} \citep{Wallace,Peiffer2}.
+The three other genes, Zm00001d011051,Zm00001d011174,Zm00001d032117, were all DEGs in T20 and T27. 
+Three of these four genes are located on chromosome 8.
+Zm00001d011051 encodes an  ACT domain-containing protein ACR, and was found to be associated with relative ear height, plant height, and days to flowering \citep{Wallace,Li4,Peiffer}.
+It is a homolog of ACR9 in \textit{Arabidopsis}, which functions as a negative regulator of glucose signalling in leaves \citep{Liao}.
+
+Zm00001d011174, also known as see2$\alpha$ (senescence enhanced 2$\alpha$) is a cysteine protease that has been shown to be involved in leaf sensescence in maize \citep{Zhang4}.
+It overlaps with GWAS hits for days to flowering and plant height \citep{Peiffer,Peiffer2}.
+It contains a Peptidase C13, legumain domain.
+Its homolog in Arabadopsis is dVPE, a gamma vacuolar processing enzyme, that is expressed in vegetative organs and associated with programmed cell death in response to stress \citep{Wang6,Reis}.
+One of them, Zm00001d032117, a Cell division control protein 48 homolog D, is located on chromosome 1.
+
+25 Early-Late MITE DEGs overlapped with QTL.
+23 of the these DEGs overlapped with the large QTL for flowering time on chromosome 8 containing vgt1.
+Two DEGs overlapped with two different MITE only QTL on chromosome 3, Zm00001d040264 with a QTL for harvest grain moisture,qHGM3\_1, and Zm00001d042673 with a QTL for total plant height,qTPH3.
+
+Zm00001d042673 encodes an amidophosphoribosyltransferase protein, which is involved in the purine biosynthesis process, specifically the 5-aminoimidazole ribonucleotide biosynthesis I pathway in maize XX. 
+A GWAS hit for tassel branch number was found 2kb upstream \citep{Li6}.
+
+Two other notable Early-Late MITE DEG were Zm00001d003563 and Zm00001d052122, which overlapped with factor trans-eQTL for Factor 2 in T12 and Factor 19 in T20, respectively.
+Zm00001d003563, located on chromsome 2, encodes a S-adenosyl-L-methionine-dependent methyltransferase superfamily protein.
+A GWAS hit for flowering time is located ~50kb upstream \citep{Li6}.
+The T12 Factor 2 GO terms - loaded on the factor?XX
+
+Zm00001d052122 is located on chromosome 4.
+GWAS hits for cob weight, Southern leaf blight resistance, ear infructescence position, plant height, and flowering time were located within 20kb \citep{Peiffer,Kusmec,Kump}.
+The T20 Factor 19 GO terms - loaded on the factor?XX
+
+Lastly, one of the Early-Late MITE DEGs was Zm00001d012963, also known as dof31, a C2C2-Dof-transcription factor 31, which is involved in flowering (chromosome 5) \citep{Li4}.
+
+We performed GO term enrichment of the DEGs and found 74 enriched terms, many of them related to XX
+
+Reduced power to detect cis-eQTL due to the fact that all the MAGIC hybrid shared have their chromosomes from the tester, reducing the amount of variation in expression that could be observed 
+
+The lack of overlap observed between cis-eQTL and QTL for whole-plant phenotypes.
+
+% Trans
+\cite{Brown} Mimulus expression; differing patterns of selection on cis and trans-mutations; cis-eQTL had intermediate frequencies, while trans-eQTL were rare alleles consistent with purifying selection. 
+
+\cite{Liu5} Trans and the omnigenic model
+\cite{Pierce} trans mediated by cis
+\cite{VandeZande} Pleiotropic effects of trans-regulatory variants
+
+Overlap does not imply mediation
+
+\cite{Fu2} previously observed segregation distortion due to inadvertant selection on flowering time in the maize IBM populations.
+This was most strongly observed for QTL that had a stable effect on flowering time across environments, and, notably, was strongly observed in a QTL on chromosome 3 overlapping with qDTA3\_2/qDTS3\_2 \citep{Liu7}.
+
+
+\subsection{Overlap of eQTL with whole-plant QTL}
+    We looked for overlap between support intervals for QTL for complex traits found in \cite{Odell} and eQTL. 
+    To provide further support that the two features were mechanistically related, in addition to having physically overlap, we looked at the correlation in founder effect sizes for the variants associated with the QTL and eQTL.
+    In order to determine if the effect sizes were more correlated than expected by chance, we XX.
+    For MegaLMM factors for which we found factor trans-eQTL, we calculated the correlation between whole-plant phenotypes and the F-values fit by MegaLMM to see if variation in the expression of the factor was associated with variation in complex traits.
+
+
+\subsection{Factor Dysregulation}
+The founder loci for factor trans-eQTL possessed XX rare alleles, XX homozygous rare alleles.
+Are they de-enriched?
+Do they display the same quadratic pattern? Far fewer data points to test
+
+For factor trans-eQTL that are (1) enriched for FT genes (T18 Factor 4) or (2) overlapping with QTL (T20 Factor 17)
+%Is there a correlation between F-values & flowering?
+
+\subsection{Impact of Selection on Extreme Expression}
+
+Suspected we may see a deviation from this pattern for genes that experienced selection other than purifying selection.
+
+We sought to test if genes related to flowering time more frequently displayed patterns of diversifying or directional selection than other genes.
+We previously found genomic evidence that selection on flowering time was applied during the making of the BALANCE population.
+This genomic evidence was consistent with the intentions of the BALANCE population's design, to maintain both early and late flowering alleles segregating in the population throughout generations of intercrossing.
+
+We estimated polygenic scores for days-to-anthesis for each individual using 4 major flowering time QTL identified in the population using BLUPs (qDTA3\_1,qDTA3\_2,qDTA8, and qDTA9).
+The variance of polygenic scores of the true population was significantly higher than those of 100 simulated populations using a 5\% significance cutoff.
+This suggests that the population may have experienced diversifying for flowering time.
+In addition, the mean polygenic score was later than approximately 90\% of permutations, providing somewhat weaker evidence for directional selection.
+
+% Direction selection
+We would predict founder alleles that are positively correlated with flowering time (associated with later flowering) to be at higher frequency in the population.
+
+% Diversifying selection
+We would predicted that extreme founder alleles are at higher frequency, regardless of directionality related to flowering time.
+
+How many genes display these patterns?
+
+\subsection{Diversifying Selection on Flowering Time}
+The Saclay diversifying seleciton experiments, which used MBS847 and F252 (both parents in the population)\citep{Durand2,Durand3}.
+Standing variation versus new mutations contributing to variation XX
+Transcriptional response to divergent selection on FT maize in this population showed some genes differentially expressed in early vs. late flowering lines after 13 generations \citep{Tenaillon2} 
+
+Discussion Outline
+- candidate genes
+    - eQTL and GWAS power
+    - why can we find overlap here, but not elsewhere?
+- dysregulation
+    - compare to previous studies
+    - rare allele burden and yield
+    - discuss factors - omnigenic model (if a single location in the genome explains a great deal of variation in a complex trait, it is more likely to be under purifying selection, and so won't be variable in the population
+    - factor eQTL we can find are likely to not explain a great deal of variation in complex traits (trans hotspots)
+- selection's impact on extreme expression
+    - model of directional selection predicts a shift in the fitness optimum will result in increases in frequency of large effect alleles, with future modulations
+    - diversifying selection is a precursor to speciation
+    - it is difficult to intuit the impact that the potential combined forces of these two types of selection would have on genetic variation and gene expression variation.
+    - However, we would anticipate a slight deviation from the expectation that alleles associated with extreme expression are necessarily deleterious
+    
+    - why do we see this pattern? Flowering time can act as a means of population differentiation, as two individuals that do not flower simultaneously cannot reproduce.
+    - Although staggered planting is often sufficient to overcome this temporal barrier, for individuals with extreme phenotypes, there is still limited opportunity to exchange alleles
+    - This was the case in the making of the population during the 3 generations of intercrossing after the production of the 8-way hybrids.
+    - There was also potential for directional selection towards later flowering during the making of the MAGIC F1s, as all of the double haploids were crossed to an inbred tester, MBS847, that is relatively late flowering. 
+    - Again, even with staggered planting times, early flowering individuals may have had fewer crosses made with the tester, resulting in an increase in late flowering alleles in the population
+
+
+\end{document}
